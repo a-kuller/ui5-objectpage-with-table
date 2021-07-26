@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:DataServices>
+        <Schema Namespace="MyService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="Bar" EntityType="MyService.Bar">
+                    <NavigationPropertyBinding Path="Foo" Target="Foo"/>
+                </EntitySet>
+                <EntitySet Name="Foo" EntityType="MyService.Foo">
+                    <NavigationPropertyBinding Path="items" Target="Bar"/>
+                </EntitySet>
+            </EntityContainer>
+            <EntityType Name="Bar">
+                <Key>
+                    <PropertyRef Name="Foo_ID"/>
+                </Key>
+                <NavigationProperty Name="Foo" Type="MyService.Foo" Partner="items">
+                    <ReferentialConstraint Property="Foo_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="col1b" Type="Edm.String"/>
+                <Property Name="col2b" Type="Edm.String"/>
+                <Property Name="Foo_ID" Type="Edm.Guid" Nullable="false"/>
+            </EntityType>
+            <EntityType Name="Foo">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="col1" Type="Edm.String"/>
+                <Property Name="col2" Type="Edm.String"/>
+                <NavigationProperty Name="items" Type="Collection(MyService.Bar)" Partner="Foo"/>
+            </EntityType>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
