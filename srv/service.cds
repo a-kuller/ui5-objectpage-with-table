@@ -6,6 +6,7 @@ service MyService {
 }
 
 annotate MyService.Foo with @(
+    odata.draft.enabled,
     Capabilities           : {
         Insertable : true,
         Updatable  : true,
